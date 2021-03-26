@@ -1,0 +1,15 @@
+
+version: "3.0"
+
+services:
+  linebot:
+    build: .
+    restart: always
+    tty: true
+    ports:
+      - 1212:1212
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - /app/node_modules
