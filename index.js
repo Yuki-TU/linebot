@@ -1,5 +1,6 @@
 const server = require("express")();
 const line = require("@line/bot-sdk"); // Messaging APIのSDKをインポート
+const axios = require("axios");
 
 
 const line_config = {
@@ -67,3 +68,26 @@ async function selectArticleUrls() {
     return articleUrls;
 }
 
+async function pushArticle() {
+    const client = new line.Client({
+        channelAccessToken: line_config.channelAccessToken
+    });
+    const articleUrls = await selectArticleUrls();
+
+    articleUrls.forEach((articleUrl) => {
+        let message = {
+            type: 'text',
+            text: articleUrl
+        }
+        client.pushMessage(process.env.LINE_USER_ID, message)
+            .then((response) => {
+                console.log('success push')
+            })
+            .catch((err) => {
+                console.log('failure push! error: \n' + err)
+            });
+    });
+}
+
+//qiitaトレンド記事のpush通知を送る
+pushArticle();
