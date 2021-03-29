@@ -43,3 +43,18 @@ server.post('/bot/webhook', line.middleware(line_config), (req, res, next) => {
         }
     );
 });
+
+function getQiitaArticles() {
+    return new Promise((resolve, reject) => {
+        axios.get(process.env.QIITA_API)
+            .then(function (response) {
+                let articles = response.data;
+                resolve(articles);
+            })
+            .catch(function (error) {
+                reject(error);
+            })
+    });
+
+}
+
