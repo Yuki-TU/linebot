@@ -58,3 +58,12 @@ function getQiitaArticles() {
 
 }
 
+async function selectArticleUrls() {
+    let articles = await getQiitaArticles();
+    let articleUrls = [];
+    articles.forEach((element) => {
+        articleUrls.push(element.node.linkUrl);
+    });
+    return articleUrls;
+}
+
