@@ -13,3 +13,5 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+    entrypoint: >
+      sleep 86400
